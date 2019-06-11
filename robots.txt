@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /system.html
+Sitemap: httt://paigevenuto.com/sitemap.xml
