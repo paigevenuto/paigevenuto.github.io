@@ -138,7 +138,7 @@ footer > a {
     padding: 0 20px;
     background: var(--color0);
     background: rgba(5,5,5,0.85);
-    overflow: auto;
+    overflow: hidden;
     clear: both;
     margin-bottom: 30px;
 }
