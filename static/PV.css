@@ -1,0 +1,285 @@
+/*
+ * ##########################################################################################
+ * 8-color X11-esque palette
+ * ##########################################################################################
+ */
+
+:root {
+    --color0: black;
+    --color1: mediumseagreen;
+    --color2: powderblue;
+    --color3: slategray;
+    --color4: forestgreen;
+    --color5: limegreen;
+    --color6: chartreuse;
+    --color7: mintcream;
+}
+
+ /*
+ * ##########################################################################################
+ * base template
+ * ##########################################################################################
+ */
+
+code {
+    font-family: 'Monospace', monospace;
+}
+html {
+    overflow-y: scroll;
+    height: 100%;
+    width: 100%;
+}
+body {
+    background: url(../images/background.gif);
+    background-attachment: fixed;
+    background-repeat: repeat;
+    min-height: 100%;
+    width: 100%;
+    margin: auto;
+    font-family: 'Monospace', monospace;
+    line-height: 1.6;
+    color: var(--color7);
+    position:relative;
+    box-sizing: border-box;
+    padding-bottom: 54px;
+    animation:static 16s infinite linear;
+}
+h1 {
+    text-decoration: none;
+    text-align: center;
+}
+@font-face {
+    font-family: 'monospace';
+    src: url('../static/Monospace.ttf');
+}
+a, b, strong {
+    color: var(--color6);
+    font-weight: bold;
+}
+footer {
+    margin: auto;
+    position: absolute;
+    max-width: 100%;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    box-shadow: inset 0 -10px 8px -10px rgba(0, 0, 0, 0.9), inset 0 -20px 20px -10px rgba(0, 0, 0, 0.8);
+}
+footer > a {
+    color: var(--color7);
+    text-shadow: 0 0 3px var(--color0);
+}
+
+/*
+ * ##########################################################################################
+ * modules
+ * ##########################################################################################
+ */
+
+.avatar {
+    float: left;
+    max-height: 500px;
+    max-width: 30%;
+    padding: 10px;
+}
+.signature {
+    float: right;
+}
+.certbox {
+    display: inline-flex;
+    justify-content: center;
+}
+.posts {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: space-between;
+}
+.post {
+    text-align: center;
+    padding: 20px;
+}
+.post img {
+    border-radius: 20px;
+    width: 90%;
+}
+@media screen and (max-width: 800px) {
+    .posts {
+        display: block;
+    }
+}
+.certs {
+    width: 100%;
+    padding: 10px;
+    max-width: 100px;
+}
+
+/*
+ * ##########################################################################################
+ * templates
+ * ##########################################################################################
+ */
+
+.centered {
+    text-align: center;
+    width: 100%;
+}
+.textbox > p > img {
+    display: block;
+    margin: auto;
+}
+.textbox {
+    max-width: 1200px;
+    margin: auto;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6), 0 3px 10px 0 rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 20px;
+    background: var(--color0);
+    background: rgba(5,5,5,0.85);
+    overflow: auto;
+    clear: both;
+    margin-bottom: 30px;
+}
+
+/*
+ * ##########################################################################################
+ * topnav
+ * ##########################################################################################
+ */
+
+.topnav {
+    background-color: var(--color0);
+    overflow: hidden;
+    max-width: 100%;
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 10px 2px rgba(0, 0, 0, 0.9), 0 10px 20px 10px rgba(0, 0, 0, 0.8);
+    display: flex;
+    margin-bottom: 70px;
+}
+.navbtn, .menubtn {
+    margin: auto 0;
+    text-align: center;
+    padding: 10px;
+    line-height: 1;
+    text-decoration: none;
+    font-size: 15px;
+    width: 120px;
+}
+.homebtn, .menubtn {
+    width: unset;
+    margin: auto;
+    font-size: 2em;
+}
+.topnav a:hover {
+    background-color: var(--color6);
+    color: var(--color0);
+}
+.menubtn {
+    display: none;
+    padding: 10px 20px;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+@media screen and (max-width: 800px) {
+    .topnav {
+        display: block;
+        padding: 0;
+    }
+    .navbtn {
+        display: none;
+        text-align: left;
+    }
+    .homebtn, .menubtn{
+        display: block;
+    }
+    .topnav.responsive a {
+        display: block;
+        font-size: 2em;
+    }
+    .topnav.responsive .homebtn {
+        display: none;
+    }
+}
+@media screen and (max-width: 400px) {
+    .topnav a {
+        font-size: 1.5em;
+    }
+    .topnav.responsive a {
+        font-size: 1.5em;
+    }
+}
+
+/*
+ * ##########################################################################################
+ * animations
+ * ##########################################################################################
+ */
+
+.blinking{
+    animation:blinkingText 1.5s infinite, linear;
+    display: inline;
+}
+@keyframes blinkingText{
+    0%{
+        color: var(--color6);
+    }
+    50%{
+        color: var(--color6);
+    }
+    51%{
+        color: var(--color0);
+    }
+    100%{
+        color: var(--color0);
+    }
+}
+@keyframes static{
+    0% {background-position: 0 0;}
+    100% {background-position: 0 800px;}
+}
+
+/*
+ * ##########################################################################################
+ * google code prettifer styles
+ * ##########################################################################################
+ */
+
+.str { color: var(--color6); }
+.kwd { color: var(--color5); }
+.com { color: var(--color1); }
+.typ { color: var(--color3); }
+.lit { color: var(--color5); }
+.pun { color: var(--color7); }
+.pln { color: var(--color7); }
+.tag { color: var(--color5); }
+.atn { color: var(--color7); }
+.atv { color: var(--color6); }
+.dec { color: var(--color5); }
+
+pre.prettyprint {
+    border: 2px solid var(--color7);
+    margin: auto;
+    width: fit-content;
+    padding: 0 20px;
+}
+.prettyprint {
+    background: #000;
+}
+@media print
+{
+    .str { color: var(--color6) ; }
+    .kwd { color: var(--color5) ; font-weight: bold; }
+    .com { color: var(--color1) ; font-style: italic; }
+    .typ { color: var(--color3) ; font-weight: bold; }
+    .lit { color: var(--color5) ; }
+    .pun { color: var(--color7) ; }
+    .pln { color: var(--color7) ; }
+    .tag { color: var(--color5) ; font-weight: bold; }
+    .atn { color: var(--color7) ; }
+    .atv { color: var(--color6) ; }
+}

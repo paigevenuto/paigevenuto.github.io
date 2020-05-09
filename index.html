@@ -2,74 +2,81 @@
 <html>
 
     <head>
-        <meta charset="UTF-8" meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-        <title>Paige Venuto</title>
-        <script src="PV.js"></script>
-        <link rel="stylesheet" href="PV.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="Monospace.ttf">
-        <script src="https://kit.fontawesome.com/ee79f78361.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Inconsolata|Ubuntu+Mono&display=swap"! rel="stylesheet">
-        <meta property="og:title" content="Information Technology Professional and Software Engineering Student - A+ | Network+ | Security+">
-        <meta property="og:url" content=".">
-        <meta property="og:site_name" content="PaigeVenuto.com">
-        <meta property="og:image" content="./images/preview.png">
 
-        <!-- ICON STUFF -->
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-        <link rel="manifest" href="/icons/site.webmanifest">
-        <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#004000">
-        <link rel="shortcut icon" href="/icons/favicon.ico">
+        <!--static -->
+        <meta charset="UTF-8" meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="public,max-age=1800,max-stale,stale-while-revalidate=86400,stale-if-error=259200" rem="max-age=30minutes"/>
+        <script src="static/PV.js"></script>
+        <link rel="stylesheet" href="static/PV.css" type="text/css" media="screen">
+        <script src="https://kit.fontawesome.com/ee79f78361.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <meta name="author" content="Paige Venuto">
+        <meta property="og:site_name" content="paigevenuto.com">
+        <meta name="twitter:card" content="summary">
+
+        <!--favicons -->
+        <link rel="apple-touch-menubtn" sizes="180x180" href="menubtns/apple-touch-menubtn.png">
+        <link rel="menubtn" type="image/png" sizes="32x32" href="menubtns/favmenubtn-32x32.png">
+        <link rel="menubtn" type="image/png" sizes="16x16" href="menubtns/favmenubtn-16x16.png">
+        <link rel="manifest" href="menubtns/site.webmanifest">
+        <link rel="mask-menubtn" href="menubtns/safari-pinned-tab.svg" color="#004000">
+        <link rel="shortcut menubtn" href="menubtns/favmenubtn.ico">
         <meta name="msapplication-TileColor" content="#408040">
-        <meta name="msapplication-config" content="/icons/browserconfig.xml">
+        <meta name="msapplication-config" content="/menubtns/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
-        <meta name="description" content="Paige Venuto is an Information Technology Professional and Software Engineering Student local to Charlotte, North Carolina. This is her website, with contact information herein. - A+ | Network+ | Security+">
+
+        <!--metas-->
+        <meta name="keywords" content="Paige Venuto, Charlotte, Linux, software engineer, programming, hacking">
+        <title>Paige Venuto</title>
+        <meta property="og:title" content="Software Engineer and IT Professional">
+        <meta property="twitter:title" content="Software Engineer and IT Professional">
+        <meta property="og:url" content="https://paigevenuto.com">
+        <meta property="twitter:url" content="https://paigevenuto.com">
+        <meta property="og:image" content="https://paigevenuto.com/images/preview.png">
+        <meta property="twitter:image" content="https://paigevenuto.com/images/preview.png">
+        <meta name="description" content="I am Paige Venuto, a software engineer and IT professional local to Charlotte, North Carolina. This website has my portfolio and contact information - A+ | Network+ | Security+">
+        <meta property="og:description" content="I am Paige Venuto, a software engineer and IT professional local to Charlotte, North Carolina. This website has my portfolio and contact information - A+ | Network+ | Security+">
+        <meta property="twitter:description" content="I am Paige Venuto, a software engineer and IT professional local to Charlotte, North Carolina. This website has my portfolio and contact information - A+ | Network+ | Security+">
 
     </head>
 
     <body>
-        <div class="topnav" id="myTopnav">
-            <a href="portfolio.html" class="lefttopnav">>Portfolio</a>
-            <a href="paige_venuto_resume.pdf"  target="_blank" class="lefttopnav">>Resume</a>
-            <a href="." class="centertopnav">>Paige_Venuto<span class="blinking" style="font-weight: bolder">_</span></a>
-            <a href="about.html" class="righttopnav">>About</a>
-            <a href="contact.html" class="righttopnav">>Contact</a>
-            <a href="javascript:void(0);" class="icon" onclick="dropdown()">&#9776;</a>
+        <div class="topnav">
+            <a href="portfolio.html" class="navbtn">>Portfolio</a>
+            <a href="paige_venuto_resume.pdf"  target="_blank" class="navbtn">>Resume</a>
+            <a href="." class="navbtn homebtn">>Paige_Venuto<span class="blinking" >_</span></a>
+            <a href="about.html" class="navbtn">>About</a>
+            <a href="contact.html" class="navbtn">>Contact</a>
+            <a class="menubtn"><i class="fas fa-bars"></i></a>
         </div>
 
-        <div class="content">
-            <div class="textbox">
-                <h1>
-                    Welcome!
-                </h1>
-            </div>
-            <br>
-            <div class="textbox">
-                <img style="float:left;max-height:500px;max-width:30%;width:auto;padding:10px;" src="images/avatar.png" alt="Paige Venuto's avatar image created by Nikki A at https://twitter.com/ChazzForte"></img>
-                <p> I am a young linux hobbyist with a passion for minimalism, computer science, and information security. My current interest is in programming techniques for full stack development, and I am working on a portfolio of impressive projects to practice techniques for software engineering and system/network/security administration.</p>
-                <p>I have experience in the information technology industry from my time with Avast Software, and from the time when I was helping out my high-school's IT department. I am currently studying full stack development to expand my skillset and move closer to reaching both a CISSP and OSCP.</p>
-                <p>After a day of studying and coding, I like to spend my time in meditation or reading traditional literature.</p>
-                <p>If you enjoy my content, or if you would like to connect, please feel free to reach out, I am quite friendly and appreciate hearing from this site's visitors.</p>
-                <h1 style="float:right">
-                    -Paige Venuto
-                </h1>
-                <div style="text-align:center;width:100%;">
-                    <div style="display:inline-flex;justify-content:center;">
-                        <a href="https://www.certmetrics.com/comptia/public/verification.aspx?code=Z24P4RGELL4EYSPW"><img class="certs" alt="button to open the A+ certification for Paige Venuto" src="images/comptiaaplus.png"></img></a>
-                        <a href="https://www.certmetrics.com/comptia/public/verification.aspx?code=K0RBY7XFHDEEQQGL"><img class="certs" alt="button to open the A+ certification for Paige Venuto" src="images/comptianetplus.png"></img></a>
-                        <a href="https://www.certmetrics.com/comptia/public/verification.aspx?code=XQKBHXHG6K4417WG"><img class="certs" alt="button to open the A+ certification for Paige Venuto" src="images/comptiasecplus.png"></img></a>
-                    </div>
+        <div class="textbox">
+            <h1>
+                Welcome!
+            </h1>
+        </div>
+        <div class="textbox">
+            <img class="avatar" src="images/avatar.png" alt="Paige Venuto's avatar image created by Nikki A at https://twitter.com/ChazzForte"></img>
+            <p> I am a young linux enthusiast with a passion for minimalism, computer science, and information security. My current interest is in programming techniques for full stack development, and I am working on a portfolio of fun projects to practice techniques for software engineering and system/network/security administration.</p>
+            <p>I have experience in the information technology industry from my time with Avast Software, and from the time when I was helping out my high-school's IT department. I am currently studying full stack development to expand my skillset and move closer to reaching both a CISSP and OSCP.</p>
+            <p>After a day of studying and coding, I like to spend my time in meditation or reading traditional literature.</p>
+            <p>If you enjoy my content, or if you would like to connect, please feel free to reach out, I am quite friendly and appreciate hearing from this site's visitors.</p>
+            <h1 class="signature">
+                -Paige Venuto
+            </h1>
+            <div class="centered">
+                <div class="certbox">
+                    <a href="https://www.certmetrics.com/comptia/public/verification.aspx?code=Z24P4RGELL4EYSPW"><img class="certs" alt="button to open the A+ certification for Paige Venuto" src="images/comptiaaplus.png"></img></a>
+                    <a href="https://www.certmetrics.com/comptia/public/verification.aspx?code=K0RBY7XFHDEEQQGL"><img class="certs" alt="button to open the A+ certification for Paige Venuto" src="images/comptianetplus.png"></img></a>
+                    <a href="https://www.certmetrics.com/comptia/public/verification.aspx?code=XQKBHXHG6K4417WG"><img class="certs" alt="button to open the A+ certification for Paige Venuto" src="images/comptiasecplus.png"></img></a>
                 </div>
             </div>
         </div>
-        </div>
 
         <footer>
-            <a href="https://www.linkedin.com/in/paigevenuto/"><i class="fab fa-linkedin" style="color:#eff2ea;"></i></a>
-            <a href="https://github.com/paigevenuto"><i class="fab fa-github-alt" style="color:#eff2ea;"></i></a>
-            <a href="mailto:paige@paigevenuto.com"><i class="fas fa-envelope-open-text" style="color:#eff2ea;"></i></a>
+            <a href="https://www.linkedin.com/in/paigevenuto/"><i class="fab fa-linkedin" ></i></a>
+            <a href="https://github.com/paigevenuto"><i class="fab fa-github-alt" ></i></a>
+            <a href="mailto:paige@paigevenuto.com"><i class="fas fa-envelope-open-text" ></i></a>
         </footer>
     </body>
 
