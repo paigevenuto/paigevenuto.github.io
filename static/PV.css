@@ -16,7 +16,7 @@
     --color7: mintcream;
 }
 
- /*
+/*
  * ##########################################################################################
  * base template
  * ##########################################################################################
@@ -24,6 +24,11 @@
 
 code {
     font-family: 'Monospace', monospace;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+pre.prettyprint {
+    width: auto !important;
 }
 html {
     overflow-y: scroll;
@@ -31,7 +36,6 @@ html {
     width: 100%;
 }
 body {
-    background: url(../images/background.gif);
     background-attachment: fixed;
     background-repeat: repeat;
     min-height: 100%;
@@ -43,7 +47,7 @@ body {
     position:relative;
     box-sizing: border-box;
     padding-bottom: 54px;
-    animation:static 16s infinite linear;
+    z-index: -2;
 }
 h1 {
     text-decoration: none;
@@ -65,12 +69,12 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 36px;
+    height: 56px;
     box-shadow: inset 0 -10px 8px -10px rgba(0, 0, 0, 0.9), inset 0 -20px 20px -10px rgba(0, 0, 0, 0.8);
 }
 footer > a {
-    color: var(--color7);
-    text-shadow: 0 0 3px var(--color0);
+    color: var(--color0);
+    text-shadow: 0 0 3px var(--color7);
 }
 
 /*
@@ -101,9 +105,23 @@ footer > a {
     text-align: center;
     padding: 20px;
 }
+.posts  a {
+    text-decoration: none;
+    color: var(--color7);
+    font-weight: normal;
+}
 .post img {
     border-radius: 20px;
-    width: 90%;
+    max-height: 400px;
+    max-width: 60%;
+}
+.post h2 {
+    margin-bottom: 0;
+}
+.post h4 {
+    margin: 0;
+    color: var(--color3);
+    font-weight: normal;
 }
 @media screen and (max-width: 800px) {
     .posts {
@@ -129,6 +147,7 @@ footer > a {
 .textbox > p > img {
     display: block;
     margin: auto;
+    max-width: 100%;
 }
 .textbox {
     max-width: 1200px;
@@ -142,6 +161,10 @@ footer > a {
     overflow: hidden;
     clear: both;
     margin-bottom: 30px;
+    font-size: large;
+}
+p> img.smallimg {
+    max-width: 30%;
 }
 
 /*
@@ -269,7 +292,15 @@ pre.prettyprint {
     padding: 0 20px;
 }
 .prettyprint {
-    background: #000;
+    background: var(--color0);
+}
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: var(--color3);
+    list-style-type: decimal;
+}
+li.L1, li.L3, li.L5, li.L7, li.L9 {
+    background: var(--color0);
 }
 @media print
 {
@@ -283,4 +314,54 @@ pre.prettyprint {
     .tag { color: var(--color5) ; font-weight: bold; }
     .atn { color: var(--color7) ; }
     .atv { color: var(--color6) ; }
+}
+
+
+/*
+ * ##########################################################################################
+ * particles.js container
+ * ##########################################################################################
+ */
+
+#particles-js{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: -1;
+}
+/* ---- stats.js ---- */
+.count-particles{
+    background: #000022;
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 80px;
+    color: #13E8E9;
+    font-size: .8em;
+    text-align: left;
+    text-indent: 4px;
+    line-height: 14px;
+    padding-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+.js-count-particles{
+    font-size: 1.1em;
+}
+#stats, .count-particles{
+    -webkit-user-select: none;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+#stats{
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+}
+.count-particles{
+    border-radius: 0 0 3px 3px;
 }

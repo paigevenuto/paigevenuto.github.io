@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166044936-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-166044936-1');
+        </script>
+
+        <!--static -->
+        <meta charset="UTF-8" meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="public,max-age=1800,max-stale,stale-while-revalidate=86400,stale-if-error=259200" rem="max-age=30minutes"/>
+        <script src="https://kit.fontawesome.com/ee79f78361.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="../static/PV.js"></script>
+        <link rel="stylesheet" href="../static/PV.css" type="text/css" media="screen">
+        <meta name="author" content="Paige Venuto">
+        <meta property="og:site_name" content="paigevenuto.com">
+        <meta name="twitter:card" content="summary">
+
+        <!--favicons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+        <link rel="manifest" href="../icons/site.webmanifest">
+        <link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#004000">
+        <link rel="shortcut icon" href="../icons/favicon.ico">
+        <meta name="msapplication-TileColor" content="#408040">
+        <meta name="msapplication-config" content="icons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+        <!--metas-->
+        <meta name="keywords" content="rubber ducky, USB, how to, DIY, arduino">
+        <title>Build a DIY USB Rubber Ducky using Arduino!</title>
+        <meta name="title" property="og:title" content="Build a DIY USB Rubber Ducky using Arduino!">
+        <meta property="twitter:title" content="Build a DIY USB Rubber Ducky using Arduino!">
+        <meta property="og:url" content="https://paigevenuto.com">
+        <meta property="twitter:url" content="https://paigevenuto.com">
+        <meta name="image" property="og:image" content="../images/preview.png">
+        <meta property="twitter:image" content="../images/preview.png">
+        <meta name="description" property="og:description" content="This article covers all the steps to setting up a digispark attiny85 board to function as a usb rubber ducky using arduino! These boards are extremely cheap, and are entirely reusable, making excellent additions to a penetration testing toolkit. in adition to penetration testing, they can also be used to automate beneficial tasks as shown later in this article.">
+        <meta property="twitter:description" content="This article covers all the steps to setting up a digispark attiny85 board to function as a usb rubber ducky using arduino! These boards are extremely cheap, and are entirely reusable, making excellent additions to a penetration testing toolkit. in adition to penetration testing, they can also be used to automate beneficial tasks as shown later in this article.">
+
+    </head>
+
+    <body>
+        <div id="particles-js">
+        </div>
+
+        <div class="topnav">
+            <a href="../portfolio.html" class="navbtn">>Portfolio</a>
+            <a href="../paige_venuto_resume.pdf"  target="_blank" class="navbtn">>Resume</a>
+            <a href="../" class="navbtn homebtn">>Paige_Venuto<span class="blinking" >_</span></a>
+            <a href="../about.html" class="navbtn">>About</a>
+            <a href="../contact.html" class="navbtn">>Contact</a>
+            <a class="menubtn"><i class="fas fa-bars"></i></a>
+        </div>
+
+        <div class="textbox">
+            <h1>Build a DIY USB Rubber Ducky using Arduino!</h1>
+        </div>
+        </br>
+        <div class="textbox">
+            <p>This article covers all the steps to setting up a digispark attiny85 board to function as a usb rubber ducky using arduino! these boards are extremely cheap, and are entirely reusable, making excellent additions to a penetration testing toolkit. in adition to penetration testing, they can also be used to automate beneficial tasks as shown later in this article.</p>
+
+            <p><img class="smallimg" src="../images/usbduck/digispark.png" alt="Digispark board" /></p>
+
+            <h2>Setting up the IDE</h2>
+
+            <p>The first thing I did after purchasing my Digispark was to install the
+            <strong>Arduino IDE</strong>.  On linux you can install the <code>arduino</code> package from your
+            usual package manager, although if the provided package isn’t up to date you
+            can download the latest package from here instead:
+            <a href="https://www.arduino.cc/en/Main/Software">arduino.cc/en/Main/Software</a></p>
+
+            <p>Next is to make sure that the <code>libusb</code> driver package is installed. It is also
+            recommended to install the development package too, since it includes
+            <code>libusb-config</code> which is needed later.</p>
+
+            <p>Once the drivers were installed I had to make sure that the udev rules were
+            set, since linux tends to need udev rules in order to keep usb devices
+            read-only. There were already rules available from Digistump’s website, and so
+            I simply placed those in <strong>/etc/udev/rules.d/49-micronucleus.rules</strong></p>
+
+            <pre class="prettyprint linenums"><code> sudo echo '
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0753", MODE:="0666"
+KERNEL=="ttyACM*", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0753", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+' &gt; /etc/udev/rules.d/49-micronucleus.rules </code></pre>
+
+            <p>Here is the section of the website for more details: <a href="http://digistump.com/wiki/digispark/tutorials/linuxtroubleshooting#ubuntu_troubleshooting">Digistump Wiki, Linux
+                Troubleshooting</a></p>
+
+            <p>To be on the safe side I then reload the rules</p>
+            <pre class="prettyprint linenums"><code>sudo udevadm control --reload-rules</code></pre>
+
+            <p>The next steps are to open the Arduino IDE and install the digispark board.
+            First I add the URL for the board manager I need by going to
+            <strong>File>Preferences</strong> and then pasting the following link into <strong>Additional
+                Boards Managers URLs</strong>.</p>
+
+            <p><code>http://digistump.com/package_digistump_index.json</code></p>
+
+            <p>Then I install the board manager by going to Tools>Board>Board Manager and
+            searching for Digistump AVR Boards. Then enable Digispark (Default - 16.5 MHz)
+            under Tools>Board.</p>
+
+            <p>The guide from Digistump says that it isn’t necessary to change the programmer
+            that you are using, but to be on the safe side I went to <strong>Tools>Programmer</strong> and
+            selected the <strong>Micronucleus</strong> programmer which becomes available after intsalling
+            the Digistump AVR Boards.</p>
+
+            <p>Unfortunately though, the version of the Micronucleus driver that you get from
+            Digistump is actually outdated in their provided .json for the board manager.
+            The solution here is to compile a new driver from Micronucleus’s github
+            repository. Then to replace the board manager&rsquo;s micronucleus file with the new
+            one. You can delete the micronucleus folder later if you wish.</p>
+
+            <pre class="prettyprint linenums"><code> git clone https://github.com/micronucleus/micronucleus.git
+cd micronucleus
+cd commandline
+make
+chmod +x micronucleus
+mv ~/.arduino15/packages/digistump/tools/micronucleus/2.0a4/micronucleus micronucleus.old
+cp micronucleus ~/.arduino15/packages/digistump/tools/micronucleus/2.0a4/
+rm -rf ~/micronucleus </code></pre>
+
+            <p>Lastly I restarted Arduino just to be safe, since I had just modified one of
+            the files it was using.</p>
+
+            <h2>Testing the Digispark</h2>
+
+            <p>At this point I was able to compile to my Digispark, so to test it I went to
+            <strong>File>Examples</strong> and loaded some sample code called DigisparkKeyboard, compiled
+            it, plugged in my device when prompted, and it compiled smoothly.</p>
+
+            <p><img src="../images/usbduck/arduino.png" alt="Successful compile" /></p>
+
+            <p>To make sure everything I had done was successful I then closed Arduino, opened
+            up vim, and plugged in my Digispark for it to type the default &ldquo;Hello Digispark!&rdquo;</p>
+
+            <h2>Making a payload</h2>
+
+            <p><a href="https://github.com/CedArctic/DigiSpark-Scripts">GitHub Digispark Ducky Scripts by CedArctic</a></p>
+        </div>
+
+
+        <footer>
+            <a href="https://www.linkedin.com/in/paigevenuto/"><i class="fab fa-linkedin" ></i></a>
+            <a href="https://github.com/paigevenuto"><i class="fab fa-github-alt" ></i></a>
+            <a href="mailto:paige@paigevenuto.com"><i class="fas fa-envelope-open-text" ></i></a>
+        </footer>
+    </body>
+
+
+</html>
