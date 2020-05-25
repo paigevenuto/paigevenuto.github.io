@@ -324,9 +324,9 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
  */
 
 #particles-js{
-    position:absolute;
+    position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #ffffff;
     background-image: url("");
     background-repeat: no-repeat;
