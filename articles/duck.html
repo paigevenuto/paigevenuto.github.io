@@ -146,9 +146,38 @@ rm -rf ~/micronucleus </code></pre>
 
             <h2>Making a payload</h2>
 
-            <p><a href="https://github.com/CedArctic/DigiSpark-Scripts">GitHub Digispark Ducky Scripts by CedArctic</a></p>
-        </div>
+            <p>To make the payload the options are endless, although due to the
+            size limit on the Digispark it isn't possible to fit entire
+            payloads on the device itself, so this is where you would want to
+            host the payload elsewhere and have the Digispark download it with
+            a command.</p>
 
+            <p>For PowerShell payloads you can use the WebClient.DownloadString
+            method to download a .ps1 file for executing on the machine.
+            However other options include using curl, wget, or git, depending
+            on the situation and operating system.</p>
+
+            <p>Many of the common pranks and attacks for this tool have already
+            been turned into Digispark payloads by CedArctic, and can be used
+            for inspiration for delivering new payloads.</p>
+
+            <p><a href="https://github.com/CedArctic/DigiSpark-Scripts">GitHub Digispark Ducky Scripts by CedArctic</a></p>
+
+            <h2>Defending against rubber duckies</h2>
+
+            <p>One of the drawbacks to rubber duckies is that the method of
+            delivering payloads requires keypresses which lead to the command
+            prompt, terminal, or powershell using common shortcuts. If these
+            programs are unavailable, the script is unable to run, and so by
+            protecting these programs with a password prompt prevents the
+            device from being able to execute malicious code.</p>
+
+            <p>Another drawback is that the rubber duck relies on having
+            physical access to the device. By requiring devices and their ports
+            to be in locations that are inaccessible, an attacker is unable to
+            plug a rubber duck into vulnerable devices without unnoticed.</p>
+
+        </div>
 
         <footer>
             <a href="https://www.linkedin.com/in/paigevenuto/"><i class="fab fa-linkedin" ></i></a>
