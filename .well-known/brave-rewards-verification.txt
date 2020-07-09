@@ -1,4 +1,0 @@
-This is a Brave Rewards publisher verification file.
-
-Domain: paigevenuto.com
-Token: 3328941c60d549193a0a1e43cf45b63122053ac8750b7414036286938dc8a6bb
