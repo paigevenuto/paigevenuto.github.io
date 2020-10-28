@@ -5,15 +5,15 @@
  */
 
 :root {
-    --colorbg: rgba(5,5,5,0.85);
+    --colorbg: rgba(5,5,5,0.86);
     --color0: black;
-    --color1: mediumseagreen;
-    --color2: powderblue;
-    --color3: slategray;
-    --color4: forestgreen;
-    --color5: limegreen;
-    --color6: mintcream;
-    --color7: mintcream;
+    --color1: white;
+    --color2: lightgrey;
+    --color3: silver;
+    --color4: darkgray;
+    --color5: dimgray;
+    --color6: lightslategray;
+    --color7: slategray;
 }
 
 /*
@@ -43,7 +43,7 @@ body {
     margin: auto;
     font-family: 'Monospace', monospace;
     line-height: 1.6;
-    color: var(--color7);
+    color: var(--color1);
     position:relative;
     box-sizing: border-box;
     padding-bottom: 54px;
@@ -58,7 +58,7 @@ h1 {
     src: url('../static/Monospace.ttf');
 }
 a, b, strong {
-    color: var(--color6);
+    color: var(--color2);
     font-weight: bold;
 }
 footer {
@@ -74,7 +74,8 @@ footer {
 }
 footer > a {
     color: var(--color0);
-    text-shadow: 0 0 3px var(--color7);
+    text-shadow: 0 0 3px var(--color1);
+    font-size: 1.4em;
 }
 
 /*
@@ -107,7 +108,7 @@ footer > a {
 }
 .posts  a {
     text-decoration: none;
-    color: var(--color7);
+    color: var(--color1);
     font-weight: normal;
 }
 .post img {
@@ -199,7 +200,7 @@ p> img.smallimg {
     font-size: 2em;
 }
 .topnav a:hover {
-    background-color: var(--color6);
+    background-color: var(--color2);
     color: var(--color0);
 }
 .menubtn {
@@ -250,10 +251,10 @@ p> img.smallimg {
 }
 @keyframes blinkingText{
     0%{
-        color: var(--color6);
+        color: var(--color2);
     }
     50%{
-        color: var(--color6);
+        color: var(--color2);
     }
     51%{
         color: var(--color0);
@@ -273,17 +274,17 @@ p> img.smallimg {
  * ##########################################################################################
  */
 
-.str { color: var(--color6); }
-.kwd { color: var(--color5); }
-.com { color: var(--color1); }
-.typ { color: var(--color3); }
-.lit { color: var(--color5); }
-.pun { color: var(--color7); }
-.pln { color: var(--color7); }
-.tag { color: var(--color5); }
-.atn { color: var(--color7); }
-.atv { color: var(--color6); }
-.dec { color: var(--color5); }
+.str { color: var(--color1); }
+.kwd { color: var(--color6); }
+.com { color: var(--color7); }
+.typ { color: var(--color4); }
+.lit { color: var(--color6); }
+.pun { color: var(--color1); }
+.pln { color: var(--color1); }
+.tag { color: var(--color6); }
+.atn { color: var(--color1); }
+.atv { color: var(--color4); }
+.dec { color: var(--color6); }
 
 pre.prettyprint {
     border: 2px solid var(--color7);
@@ -296,7 +297,7 @@ pre.prettyprint {
 }
 li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
 {
-    color: var(--color3);
+    color: var(--color5);
     list-style-type: decimal;
 }
 li.L1, li.L3, li.L5, li.L7, li.L9 {
@@ -333,6 +334,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     background-size: cover;
     background-position: 50% 50%;
     z-index: -1;
+    filter: blur(4px);
 }
 /* ---- stats.js ---- */
 .count-particles{
