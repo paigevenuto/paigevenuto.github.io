@@ -58,7 +58,7 @@ h1 {
     src: url('../static/Monospace.ttf');
 }
 a, b, strong {
-    color: var(--color2);
+    color: var(--color1);
     font-weight: bold;
 }
 footer {
