@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166044936-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-166044936-1');
+        </script>
+
+        <!--static -->
+        <meta charset="UTF-8" meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="public,max-age=1800,max-stale,stale-while-revalidate=86400,stale-if-error=259200" rem="max-age=30minutes"/>
+        <script src="https://kit.fontawesome.com/ee79f78361.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <script src="../static/particles.min.js"></script>
+        <script src="../static/PV.js"></script>
+        <link rel="stylesheet" href="../static/PV.css" type="text/css" media="screen">
+        <meta name="author" content="Paige Venuto">
+        <meta property="og:site_name" content="paigevenuto.com">
+        <meta name="twitter:card" content="summary">
+
+        <!--favicons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+        <link rel="manifest" href="../icons/site.webmanifest">
+        <link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#004000">
+        <link rel="shortcut icon" href="../icons/favicon.ico">
+        <meta name="msapplication-TileColor" content="#408040">
+        <meta name="msapplication-config" content="icons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+        <!--metas-->
+        <meta name="keywords" content="YouTube migrator, YouTube, account, migrate, videos, playlists, subscriptions, new name, new account, name change, transgender">
+        <title>YouTube Data Migrator App</title>
+        <meta name="title" property="og:title" content="How I built a YouTube data migrator app">
+        <meta property="twitter:title" content="How I built a YouTube data migrator app">
+        <meta property="og:url" content="https://paigevenuto.com/articles/yt-data-migrator">
+        <meta property="twitter:url" content="https://paigevenuto.com/articles/yt-data-migrator">
+        <meta name="image" property="og:image" content="https://paigevenuto.com/images/yt-data-migrator/yt-data-migrator-screenshot.png">
+        <meta property="twitter:image" content="https://paigevenuto.com/images/yt-data-migrator/yt-data-migrator-screenshot.png">
+        <meta name="description" property="og:description" content="In this article, I explain how I developed a web application to migrate YouTube data to and from different YouTube accounts. The reason I chose this project idea was because I wanted to write something
+unique and realistic, and for it to genuinely find use in a way that helps people.">
+        <meta property="twitter:description" content="In this article, I explain how I developed a web application to migrate YouTube data to and from different YouTube accounts. The reason I chose this project idea was because I wanted to write something
+unique and realistic, and for it to genuinely find use in a way that helps people.">
+
+    </head>
+
+    <body>
+        <div id="particles-js">
+        </div>
+
+        <div class="topnav">
+            <a href="https://paigevenuto.com/portfolio.html" class="navbtn">>Portfolio</a>
+            <a href="https://paigevenuto.com/paige_venuto_resume.pdf"  target="_blank" class="navbtn">>Resume</a>
+            <a href="https://paigevenuto.com/" class="navbtn homebtn">>Paige_Venuto<span class="blinking" >_</span></a>
+            <a href="https://paigevenuto.com/about.html" class="navbtn">>About</a>
+            <a href="https://paigevenuto.com/contact.html" class="navbtn">>Contact</a>
+            <a class="menubtn"><i class="fas fa-bars"></i></a>
+        </div>
+
+        <div class="textbox">
+
+<h1>YouTube Data Migrator App</h1>
+        </div>
+        </br>
+        <div class="textbox">
+
+<p>The reason I chose this project idea was because I wanted to write something
+unique and realistic, and for it to genuinely find use in a way that helps people.</p>
+
+<p>I thought about how many people spend many, many, hours manually moving over
+their YouTube data, usually because they had gotten a name change and preferred
+unifying everything under a new account. After learning a little bit about the
+[YouTube Data API] I decided that this is how I would make an app that people
+would sincerely appreciate.</p>
+
+<p>I started off with the simple plan that it would be a front end to a script
+that allows users to migrate their data from one account to another. It wasn&rsquo;t
+long before I realized that the number of components and design requirements
+involved made this task far from simple.</p>
+
+<p>Two months later, even though I had reached my goal, I ended up with
+several new goals for further improvement.</p>
+
+<p>In this article, I explain the process of how I developed this application.</p>
+
+<p>The app itself can be found here: <a href="https://yt-data-migrator.herokuapp.com">https://yt-data-migrator.herokuapp.com</a></p>
+
+<p>The github repo can be found here: <a href="https://github.com/paigevenuto/yt-data-migrator">https://github.com/paigevenuto/yt-data-migrator</a></p>
+
+<p><img src="https://paigevenuto.com/images/yt-data-migrator/yt-data-migrator-screenshot.png" alt="App Screenshot" /></p>
+
+<h2>Design Choices</h2>
+
+<p>Due to the sensitive nature of the API credentials, I needed the server to
+handle all the YouTube Data API requests. This meant needing to hold the
+imported data on the server, since the only alternative was storing it in the
+session. Luckily, Google has a nice
+<a href="https://github.com/googleapis/google-api-python-client">python library</a>
+to use for such purposes,
+and I can use a PostgreSQL database to store the data I collect.</p>
+
+<p><img src="https://paigevenuto.com/images/yt-data-migrator/databaseschema.png" alt="Database schema" /></p>
+
+<p>As far as linking the users' YouTube accounts, the solution is another
+<a href="https://developers.google.com/identity/protocols/oauth2">Google-provided python library.</a>
+Incremental authorization is usually recommended, but because it requires the
+user to authorize before every action I decided against it. I may change my
+mind in later revisions if I can make incremental authorization more convenient
+to the user.</p>
+
+<p>Due to this being a project with a focus on providing a unique service to
+assist users with a very niche need, I wanted to design a familiar interface,
+which lead me to implement <a href="https://material.io/">Material Design components.</a>.</p>
+
+<h2>Developer Policy Requirements</h2>
+
+<p>In order to be compliant with the <a href="https://developers.google.com/identity/protocols/oauth2/policies?hl=th">YouTube</a> and <a href="https://developers.google.com/youtube/terms/developer-policies">Google</a> developer polices, I had to include a
+privacy policy on my site, and it had lots of criteria that you can&rsquo;t
+get from an online generator tool. This meant typing one out manually, which
+was a bit intimidating because I had never written a privacy policy before, and
+it seemed like something with a lot of importance to not make mistakes with.</p>
+
+<p>I ended up spending a few days writing down individual needs and
+concerns, researching how to write a privacy policy, and looking at examples of
+well-known privacy policies.</p>
+
+<p>After a bit of revision, I think I ended up with <a href="https://yt-data-migrator.herokuapp.com/privacy">something workable.</a></p>
+
+<p>Another requirement for developer policy compliance is that user data not be
+stored for more than a month. I started off thinking I would resolve the issue
+with cron before realizing Heroku only works using addons and dynos.  I then
+spent some time investigating auto-vacuum with the expectation that it could be
+configured to meet my needs, but unfortunately vacuum handles this task too
+retroactively for my needs. I settled on using the Scheduler addon and
+configuring a small python script to perform a few SQL queries daily and delete
+data older than two weeks.</p>
+
+<pre class="prettyprint linenums"><code>timenow = datetime.datetime.utcnow().timestamp()
+
+vids = LikedVideo.query.filter(LikedVideo.expiration_date &lt;= timenow).all()
+for vid in vids:
+    db.session.delete(vid)
+subs = Subscription.query.filter(Subscription.expiration_date &lt;= timenow).all()
+for sub in subs:
+    db.session.delete(sub)
+lists = Playlist.query.filter(Playlist.expiration_date &lt;= timenow).all()
+for plist in lists:
+    db.session.delete(plist)
+
+db.session.commit()
+</code></pre>
+
+<h2>Security Requirements</h2>
+
+<p>To protect against <strong>spoofing and session hijack</strong>, I decided to handle login with
+<a href="https://github.com/GehirnInc/python-jwt">JWT tokens</a>, which is a convenient
+way to have secure token validation and
+avoid easily guessable session IDs. It also holds the session info
+encrypted in the token itself rather than needing a table in my database.</p>
+
+<p>The next concern I had was <strong>CSRF</strong>. Luckily,
+<a href="https://flask-wtf.readthedocs.io/en/stable/">WTForms</a> has built in CSRF
+validation, so I have CSRF protection covered with minimal effort.</p>
+
+<p>Another simple trick, is that I can configure Flask to only use HTML-only cookies
+which prevents other applications from accessing user cookies using
+JavaScript.</p>
+
+<pre class="prettyprint linenums"><code> SESSION_COOKIE_SAMESITE = 'Strict'
+</code></pre>
+
+<p>The last vulnerability I wanted to protect against was <strong>sniffing</strong>, which means
+using HTTPS. In this case, Heroku runs on HTTPS without me having to do
+anything extra. I simply serve on whatever port is specified in Heroku&rsquo;s
+environmental variable and it handles the rest.</p>
+
+<pre class="prettyprint linenums"><code>import os
+from waitress import serve
+
+PORT = os.environ[&lsquo;PORT&rsquo;]
+serve(app, port=PORT)
+</code></pre>
+
+<h2>Big Problems I Ran Into</h2>
+
+<h3>Problem One</h3>
+
+<p>I realized it was a problem that the Google API Client library needed me to
+store my Google API credentials in a client__secrets.json file. This is because
+Heroku is pulling my source code from Github, and any configuration is done
+using environmental variables rather than a secrets file. I had trouble finding
+documentation on how to use the API any other way, but I did eventually find a
+<a href="https://stackoverflow.com/questions/51601915/how-to-use-the-google-api-without-checking-a-client-secret-json-into-version-con">Stack Overflow post</a> which saved the day. A simple fix for a simple problem, but
+the journey to get there was quite uncertain.</p>
+
+<p></p>
+
+<h3>Problem Two</h3>
+
+<p>I had some difficulty with the OAuth popup, the revoke API was actually
+different from revoking permissions manually, since it doesn&rsquo;t pull the app off
+the authorized apps list. It was just disabling the refresh token, which
+isn&rsquo;t great because then the user can&rsquo;t simply re-authorize with your app if
+they change their mind, instead they have to visit their Google security
+settings and remove it there first.</p>
+
+<p>As far as I am currently aware, there isn&rsquo;t a way to make this behave as
+expected and I&rsquo;ll have to leave it like this.</p>
+
+<h3>Problem Three</h3>
+
+<p>After being confused over some errors where the refresh token was received with
+the value of <code>None</code>, I found my solution on <a href="https://stackoverflow.com/questions/51883184/google-oauth2-not-issuing-a-refresh-token-even-with-access-type-offline">Stack Overflow</a>. Unfortunately this
+was where I realized that not only is there an issue with trying to authorize
+the same account twice, but that since there is also an issue with the revoke
+route. That meant that I had to redesign my app in a way that holds onto
+multiple credentials while also preventing a user from trying to authorize the
+same account a second time. This will be a strech goal for sure.</p>
+
+<p></p>
+
+<h3>Problem Four</h3>
+
+<p>Turns out that the API doesn&rsquo;t allow you to view subscribed playlists,
+subscribe to playlists, or view the watch later playlist.</p>
+
+<p>Unfortunately, there is no solution to this one, it&rsquo;ll just have to be left out.</p>
+
+<p>:(</p>
+
+<h3>Problem Five</h3>
+
+<p>The last issue I ran into was automatically closing the popup window
+after authorizing an account.</p>
+
+<p>I tried using the <code>Window</code> object, the Web Workers API, and spent a while
+looking for other ideas with no success.</p>
+
+<p>After a while of not finding a solution I made a temporary solution of
+rendering the message <code>'You may now close this window.'</code> It&rsquo;s awkward, but
+at least it&rsquo;s better than nothing. Figuring out a better way to do this is
+definitely going to be a stretch goal.</p>
+
+<h2>Final Thoughts</h2>
+
+<p>I definitely became a lot more conscious of scope and time constraints after
+reaching this point in the app.  It&rsquo;s in a complete state, but I wouldn&rsquo;t call
+it done, because I have been thinking of several stretch goals for various ways
+that I want to improve the app as time goes on. I actually want this app to
+reach the point where it helps some people out, and in order to do that I want
+to reach the quality expectations needed before I apply for a quota increase
+from Google.</p>
+
+<p>Google still hasn&rsquo;t even verified this app&rsquo;s OAuth consent screen, which is a
+clear indication that I still have lots of areas that I need to improve.</p>
+
+<p>Here are some of my goals, in no particular order:</p>
+
+<ul>
+<li>Accessibility features</li>
+<li>Consider turning the login and sign up screens into dialogs</li>
+<li>Pass in a value for the &ldquo;algorithms&rdquo; argument when calling decode()</li>
+<li>Add a creds selector or incremental auth</li>
+<li>Add error handling and logging</li>
+<li>separate concerns of processing form data and API calls</li>
+<li>OOP for api client and JS</li>
+<li>Handle playlist descriptions and tags</li>
+<li>Progress animations</li>
+<li>Checkbox to select entire category</li>
+<li>Add playlist contents to pre-exesting playlists of the same name</li>
+<li>More extensive unit testing</li>
+</ul>
+
+
+        </div>
+
+        <footer>
+            <a href="https://www.linkedin.com/in/paigevenuto/"><i class="fab fa-linkedin" ></i></a>
+            <a href="https://github.com/paigevenuto"><i class="fab fa-github-alt" ></i></a>
+            <a href="mailto:paige@paigevenuto.com"><i class="fas fa-envelope-open-text" ></i></a>
+        </footer>
+    </body>
+
+
+</html>
