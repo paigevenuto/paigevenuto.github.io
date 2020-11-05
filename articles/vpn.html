@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166044936-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-166044936-1');
+        </script>
+
+        <!--static -->
+        <meta charset="UTF-8" meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="public,max-age=1800,max-stale,stale-while-revalidate=86400,stale-if-error=259200" rem="max-age=30minutes"/>
+        <script src="https://kit.fontawesome.com/ee79f78361.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <script src="../static/particles.min.js"></script>
+        <script src="../static/PV.js"></script>
+        <link rel="stylesheet" href="../static/PV.css" type="text/css" media="screen">
+        <meta name="author" content="Paige Venuto">
+        <meta property="og:site_name" content="paigevenuto.com">
+        <meta name="twitter:card" content="summary">
+
+        <!--favicons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+        <link rel="manifest" href="../icons/site.webmanifest">
+        <link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#004000">
+        <link rel="shortcut icon" href="../icons/favicon.ico">
+        <meta name="msapplication-TileColor" content="#408040">
+        <meta name="msapplication-config" content="icons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+        <!--metas-->
+        <meta name="keywords" content="OpenVPN, Raspberry Pi, CentOS, armhfp, ddclient, home server, EasyRSA">
+        <title>Build a DIY USB Rubber Ducky using Arduino!</title>
+        <meta name="title" property="og:title" content="Build a DIY USB Rubber Ducky using Arduino!">
+        <meta property="twitter:title" content="Build a DIY USB Rubber Ducky using Arduino!">
+        <meta property="og:url" content="https://paigevenuto.com/articles/vpn">
+        <meta property="twitter:url" content="https://paigevenuto.com/articles/vpn">
+        <meta name="image" property="og:image" content="https://paigevenuto.com/images/vpn/pi-server.png">
+        <meta property="twitter:image" content="https://paigevenuto.com/images/vpn/pi-server.jpg">
+        <meta name="description" property="og:description" content="How to build your own personal OpenVPN server on Raspberry Pi with CentOS, ddclient for dynamic DNS, and EasyRSA for encryption.uHow to build your own personal OpenVPN server on Raspberry Pi with CentOS, ddclient for dynamic DNS, and EasyRSA for encryption.">
+        <meta property="twitter:description" content="How to build your own personal OpenVPN server on Raspberry Pi with CentOS, ddclient for dynamic DNS, and EasyRSA for encryption.">
+
+    </head>
+
+    <body>
+        <div id="particles-js">
+        </div>
+
+        <div class="topnav">
+            <a href="https://paigevenuto.com/portfolio.html" class="navbtn">>Portfolio</a>
+            <a href="https://paigevenuto.com/paige_venuto_resume.pdf"  target="_blank" class="navbtn">>Resume</a>
+            <a href="https://paigevenuto.com/" class="navbtn homebtn">>Paige_Venuto<span class="blinking" >_</span></a>
+            <a href="https://paigevenuto.com/about.html" class="navbtn">>About</a>
+            <a href="https://paigevenuto.com/contact.html" class="navbtn">>Contact</a>
+            <a class="menubtn"><i class="fas fa-bars"></i></a>
+        </div>
+
+        <div class="textbox">
+            <h1>Building a Raspberry Pi OpenVPN Server the Hard Way</h1>
+        </div>
+        </br>
+        <div class="textbox">
+
+            <h2>Why CentOS?</h2>
+
+            <p>It&rsquo;s trickier to work with, so there is a bit more that can be learned.</p>
+
+            <p>Raspbian makes this task a lot easier with the help of <strong>pivpn</strong>, but that
+            takes the fun out of it.</p>
+
+            <p>Epel-release is not actually compatible with aarch64, so we&rsquo;re forced to use
+            the more challenging CentOS 7 instead of CentOS 8.</p>
+
+            <p>Plus rpmforge is dead, so the stuff I need will be missing from compatible
+            repos, and it will need to be installed from source.</p>
+
+            <p>After this is done I&rsquo;ll definitely want to play around some more with CentOS,
+            and if I eventually decide I prefer Raspbian I&rsquo;ll just buy another Pi, since
+            they&rsquo;re extremely cheap.</p>
+
+            <h2>Supplies Required</h2>
+
+            <ul>
+                <li>Raspberry Pi 3 running CentOS 7 armhfp</li>
+                <li>A domain name</li>
+                <li>A network device connected via ethernet</li>
+                <li>Access to the network device&rsquo;s settings</li>
+                <li>A preferred text editor</li>
+            </ul>
+
+
+            <h2>Install a Ton of Requirements</h2>
+
+            <p><pre class="prettyprint linenums"><code>sudo yum -y install \
+    perl \
+    perl-Net-DNS \
+    perl-IO-Socket-SSL \
+    perl-IO-Socket-INET6 \
+    perl-JSON-PP \
+    perl-File-Temp \
+    wget \
+    lzo-devel \
+    pam-devel \
+    http://repo.openfusion.net/centos7-x86_64/perl-Data-Validate-IP-0.27-1.of.el7.noarch.rpm \
+    http://repo.openfusion.net/centos7-x86_64/perl-Net-IP-1.26-1.of.el7.noarch.rpm
+
+sudo yum group install &ldquo;Development Tools&rdquo;
+
+wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
+tar -xvzf openssl-1.1.1g.tar.gz
+cd openssl-1.1.1g
+./config &ndash;prefix=/usr/
+make
+sudo make install
+cd ~
+
+wget https://swupdate.openvpn.org/community/releases/openvpn-2.5.0.tar.gz
+tar -zxf openvpn-2.5.0.tar.gz
+cd openvpn-2.5.0
+./configure
+make
+sudo make install
+cd ~</code></pre><p>
+
+            <h2>Configuring the Network</h2>
+
+            <ol>
+                <li>Reserve IP address
+                    <br>
+                    <img src="../images/vpn/reserve-address.png" alt="Router LAN Settings"></li>
+                <li>Forward port 1194
+                    <br>
+                    <img src="../images/vpn/port-forward.png" alt="Router Port Forward Settings"></li>
+            </ol>
+
+
+            <h2>Configuring Dynamic DNS</h2>
+
+            <ol>
+                <li><p>Enable Dynamic DNS for Your Domain
+                    <br>
+                    <img src="../images/vpn/dns-settings.png" alt="DNS Settings Screenshot"></p></li>
+                <li><p>Get and Extract ddclient Tarball</p>
+
+                    <p><pre class="prettyprint linenums"><code> wget https://github.com/ddclient/ddclient/archive/v3.9.1.tar.gz
+ tar xvfa v3.9.1.tar.gz
+ cd ddclient-3.9.1</p>
+
+<p> sudo cp ddclient /usr/sbin/
+sudo mkdir /etc/ddclient
+sudo mkdir /var/cache/ddclient
+sudo cp sample-etc_ddclient.conf /etc/ddclient/ddclient.conf
+cd ~</code></pre></p></li>
+                    <li><p>Edit <strong>/etc/ddclient/ddclient.conf</strong> with your preferred text editor</p>
+
+                        <ul>
+                            <li>Set <strong>use=web</strong></li>
+                            <li>Set <strong>policy</strong>, <strong>login</strong>, and <strong>password</strong></li>
+                            <li>Add your domain to a new line at the bottom</li>
+                        </ul>
+
+
+                        <p> <img src="../images/vpn/ddclient-settings.png" alt="ddclient settings" /></p></li>
+                    <li><p>Test ddclient for Errors</p>
+
+                        <p> <pre class="prettyprint linenums"><code>sudo ddclient -daemon=0 -debug -verbose -noquiet</code></pre></p></li>
+                        <li><p>Enable ddclient Service</p>
+
+                            <p> <pre class="prettyprint linenums"><code>sudo cp sample-etc_systemd.service /etc/systemd/system/ddclient.service
+sudo systemctl enable ddclient.service
+sudo systemctl start ddclient.service</code></pre></p></li>
+            </ol>
+
+
+            <h2>Configuring Firewall</h2>
+
+            <ol>
+                <li><p>Enable Kernel IP Forwarding</p>
+
+                    <p> <pre class="prettyprint linenums"><code>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</code></pre></p>
+
+                    <p> Edit <strong>/etc/sysctl.conf</strong> with your preferred text editor</p>
+
+                    <ul>
+                        <li>Uncomment <strong>net.ipv4.ip_forward=1</strong></li>
+                    </ul>
+                </li>
+                <li><p>Set Firewall settings</p>
+
+                    <p> <pre class="prettyprint linenums"><code>sudo firewall-cmd --add-service openvpn
+sudo firewall-cmd --permanent --add-service openvpn
+sudo firewall-cmd --add-masquerade
+sudo firewall-cmd --permanent --add-masquerade</code></pre></p></li>
+                    <li><p>Test Firewall for Errors</p>
+
+                        <p> <pre class="prettyprint linenums"><code>firewall-cmd --list-services
+firewall-cmd --query-masquerade</code></pre></p></li>
+            </ol>
+
+
+            <h2>Configuring OpenVPN</h2>
+
+            <ol>
+                <li><p>Download Easy-RSA</p>
+
+                    <p><pre class="prettyprint linenums"><code>wget https://github.com/OpenVPN/easy-rsa/archive/v3.0.8.tar.gz
+tar -zxf v3.0.8.tar.gz</code></pre></p></li>
+                <li><p>Copy Sample Server Config</p>
+                    <p><pre class="prettyprint linenums"><code>wget https://raw.githubusercontent.com/OpenVPN/openvpn/master/sample/sample-config-files/server.conf</code></pre></p>
+                   </li>
+                <li><p>Edit <strong>/etc/openvpn/server.conf</strong> with your preferred text editor</p>
+
+                    <ul>
+                        <li>Uncomment <strong>push &ldquo;redirect-gateway def1 bypass-dhcp&rdquo;</strong></li>
+                        <li>Uncomment <strong>push &ldquo;dhcp-option DNS&rdquo;</strong> and set to your preferred DNS server(s)</li>
+                        <li>Uncomment <strong>user nobody</strong></li>
+                        <li>Uncomment <strong>group nogroup</strong></li>
+                        <li>Set <strong>ca /etc/openvpn/ca.crt</strong></li>
+                        <li>Set <strong>cert /etc/openvpn/client.crt</strong></li>
+                        <li>Set <strong>key /etc/openvpn/client.key</strong></li>
+                        <li>Set <strong>dh /etc/openvpn/dh2048.pem</strong></li>
+                        <li>Set <strong>tls-auth /etc/openvpn/ta.key 1</strong></li>
+                    </ul>
+                </li>
+                <li><p>Put Config in /etc/openvpn and rename it to the following</p>
+
+                    <ul>
+                        <li><strong>sudo mv server.conf /etc/openvpn/server-udp-1194.conf</strong></li>
+                    </ul>
+
+
+                    <p> If directory doesn&rsquo;t exist</p>
+
+                    <ul>
+                        <li><strong>sudo mkdir /etc/openvpn</strong></li>
+                    </ul>
+                </li>
+            </ol>
+
+
+            <h2>Configure Cryptography</h2>
+
+            <ol>
+                <li><p>Edit <strong>~/easy-rsa-3.0.8/easyrsa3/vars.example</strong> with your preferred text editor
+                    and save as <strong>vars</strong></p>
+
+                    <ul>
+                        <li>Set new value for <strong>set_var EASYRSA_REQ_COUNTRY</strong></li>
+                        <li>Set new value for <strong>set_var EASYRSA_REQ_PROVINCE</strong></li>
+                        <li>Set new value for <strong>set_var EASYRSA_REQ_CITY</strong></li>
+                        <li>Set new value for <strong>set_var EASYRSA_REQ_ORG</strong></li>
+                        <li>Set new value for <strong>set_var EASYRSA_REQ_EMAIL</strong></li>
+                        <li>Set new value for <strong>set_var EASYRSA_REQ_OU</strong></li>
+                    </ul>
+                </li>
+                <li><p>Generate Diffie-Hellman</p>
+
+                    <p> <pre class="prettyprint linenums"><code>sudo openssl dhparam -out /etc/openvpn/dh2048.pem 2048</code></pre></p></li>
+                    <li><p>Generate CA and server</p>
+
+                        <p> <pre class="prettyprint linenums"><code>cd ~/easy-rsa-3.0.8/easyrsa3
+./easyrsa init-pki
+./easyrsa build-ca
+sudo cp ~/easy-rsa-3.0.8/easyrsa3/pki/ca.crt /etc/openvpn/
+./easyrsa gen-req server nopass
+./easyrsa sign-req server server
+sudo cp ~/easy-rsa-3.0.8/easyrsa3/pki/issued/server.crt /etc/openvpn/
+sudo cp ~/easy-rsa-3.0.8/easyrsa3/pki/private/server.key /etc/openvpn/
+openvpn --genkey secret ta.key
+sudo cp ta.key /etc/openvpn/
+cp ta.key ~</code></pre></p></li>
+                        <li><p>Generate a client</p>
+
+                            <p><pre class="prettyprint linenums"><code>mkdir ~/newclient
+mv ~/ta.key ~/newclient/
+./easyrsa gen-req client1 nopass
+cp ./pki/private/client1.key ~/newclient
+./easyrsa sign-req client client1
+cp ./pki/issued/client1.crt ~/newclient
+cp ~/easy-rsa-3.0.8/easyrsa3/pki/ca.crt ~/newclient
+
+cd ~
+wget https://raw.githubusercontent.com/openvpn/openvpn/master/sample/sample-config-files/client.conf
+mv client.conf newclient/client1.ovpn</code></pre></p></li>
+                        <li><p>Edit <strong>client1.ovpn</strong> with your preferred text editor</p>
+
+                            <ul>
+                                <li>Replace occurrences of my-server-1 with your server address</li>
+                                <li>Uncomment <strong>group nogroup</strong></li>
+                                <li>Uncomment <strong>user nobody</strong></li>
+                                <li>Comment Out <strong>ca ca.crt</strong></li>
+                                <li>Comment Out <strong>cert client.crt</strong></li>
+                                <li>Comment Out <strong>key client.key</strong></li>
+                                <li>Comment Out <strong>tls-auth ta.key 1</strong></li>
+                                <li>Add <strong>key-direction 1</strong> at the bottom</li>
+                            </ul>
+                        </li>
+                        <li><p>Combine the Client Config</p>
+
+                            <p><pre class="prettyprint linenums"><code>cd ~/newclient
+
+echo &ldquo;<ca>&rdquo; >> client1.ovpn
+cat ca.crt >> client1.ovpn
+echo &ldquo;</ca>&rdquo; >> client1.ovpn
+
+echo &ldquo;<cert>&rdquo; >> client1.ovpn
+cat client1.crt >> client1.ovpn
+echo &ldquo;</cert>&rdquo; >> client1.ovpn
+
+echo &ldquo;<key>&rdquo; >> client1.ovpn
+cat client1.key >> client1.ovpn
+echo &ldquo;</key>&rdquo; >> client1.ovpn
+
+echo &ldquo;&lt;tls-auth>&rdquo; >> client1.ovpn
+cat ta.key >> client1.ovpn
+echo &ldquo;&lt;/tls-auth>&rdquo; >> client1.ovpn</code></pre></p></li>
+                        <li><p>Download the Client Config</p>
+
+                            <p> <pre class="prettyprint linenums"><code>scp paige@192.168.0.42:newclient/client1.conf .</code></pre></p></li>
+            </ol>
+
+
+            <h2>Clean Up</h2>
+
+            <p><pre class="prettyprint linenums"><code>cd ~
+sudo rm -rf v3.9.1.tar.gz \
+    ddclient-3.9.1 \
+    openssl-1.1.1g.tar.gz \
+    openssl-1.1.1g \
+    openvpn-2.5.0.tar.gz \
+    openvpn-2.5.0 \
+    newclient</code></pre></p>
+
+            <h2>Enabling the Service</h2>
+
+            <p>Sometimes when you build and compile OpenVPN from source, it doesn&rsquo;t get
+            registered by systemd.</p>
+
+            <p>To fix this do the following.</p>
+
+            <ol>
+                <li><p>Create a file at <strong>/etc/systemd/system/</strong> called <strong>openvpn@server.service</strong> with
+                    the following data.</p>
+
+                    <p><pre class="prettyprint linenums"><code>[Unit]
+Description=OpenVPN Robust And Highly Flexible Tunneling Application On %I
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PrivateTmp=true
+ExecStart=/usr/local/sbin/openvpn &ndash;daemon &ndash;cd /etc/openvpn/ &ndash;config /etc/openvpn/server-udp-1194.conf
+
+[Install]
+WantedBy=multi-user.target</code></pre></p></li>
+                <li><p>Enable this new service</p>
+
+                    <p> <pre class="prettyprint linenums"><code>sudo systemctl daemon-reload
+sudo systemctl enable openvpn@server.service</code></pre></p></li>
+                    <li><p>Reboot</p>
+
+                        <p> <pre class="prettyprint linenums"><code>sudo reboot now</code></pre></p></li>
+            </ol>
+
+        </div>
+
+        <footer>
+            <a href="https://www.linkedin.com/in/paigevenuto/"><i class="fab fa-linkedin" ></i></a>
+            <a href="https://github.com/paigevenuto"><i class="fab fa-github-alt" ></i></a>
+            <a href="mailto:paige@paigevenuto.com"><i class="fas fa-envelope-open-text" ></i></a>
+        </footer>
+    </body>
+
+
+</html>
