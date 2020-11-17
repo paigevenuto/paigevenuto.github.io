@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
+<urlset>
 <url>
-    <loc>https://paigevenuto.com/</loc>
+  <loc>https://paigevenuto.com/</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 <url>
-    <loc>https://paigevenuto.com/portfolio.html</loc>
+  <loc>https://paigevenuto.com/portfolio.html</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://paigevenuto.com/about.html</loc>
+  <loc>https://paigevenuto.com/paige_venuto_resume.pdf</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://paigevenuto.com/paige_venuto_resume.pdf</loc>
+  <loc>https://paigevenuto.com/about.html</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://paigevenuto.com/contact.html</loc>
+  <loc>https://paigevenuto.com/contact.html</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
-        
+<url>
+  <loc>https://paigevenuto.com/articles/yt-data-migrator.html</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://paigevenuto.com/articles/vpn.html</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://paigevenuto.com/articles/duck.html</loc>
+  <lastmod>2020-11-11T20:59:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
 </urlset>
