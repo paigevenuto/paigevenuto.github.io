@@ -3,12 +3,33 @@ window.addEventListener("DOMContentLoaded", () => {
   const menubtn = document.querySelector(".menubtn");
   menubtn.addEventListener("click", dropdown);
   function dropdown() {
+    topnav.style.top = "0";
     if (topnav.className === "topnav") {
       topnav.className += " responsive";
     } else {
       topnav.className = "topnav";
     }
   }
+
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function () {
+    if (topnav.className === "topnav") {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        topnav.style.top = "0";
+      } else {
+        topnav.style.top = "-50px";
+      }
+      prevScrollpos = currentScrollPos;
+    }
+  };
+
+  /*
+   *######################################
+   *######## Particles.js stuff  ###############
+   *######################################
+   */
+
   particlesJS("particles-js", {
     particles: {
       number: {

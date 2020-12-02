@@ -23,7 +23,7 @@
  */
 
 code {
-    font-family: 'Monospace', monospace;
+    font-family: 'Monospace', 'Courier New', 'Courier', 'Consolas' monospace;
     word-wrap: break-word;
     white-space: pre-wrap;
 }
@@ -162,7 +162,7 @@ footer > a {
     overflow: hidden;
     clear: both;
     margin-bottom: 30px;
-    font-size: large;
+    font-size: 1.2rem;
 }
 p> img.smallimg {
     max-width: 30%;
@@ -184,6 +184,7 @@ p> img.smallimg {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6), 0 3px 10px 0 rgba(0, 0, 0, 0.5);
     display: flex;
     margin-bottom: 70px;
+    transition: top 0.3s;
 }
 .navbtn, .menubtn {
     margin: auto 0;
@@ -206,7 +207,7 @@ p> img.smallimg {
 .menubtn {
     display: none;
     padding: 10px 20px;
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 0;
 }
