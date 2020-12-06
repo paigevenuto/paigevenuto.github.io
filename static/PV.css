@@ -238,6 +238,12 @@ p> img.smallimg {
     .topnav.responsive a {
         font-size: 1.5em;
     }
+    .certbox {
+        display: inline-block;
+    }
+    .textbox {
+        font-size: 1em;
+    }
 }
 
 /*
