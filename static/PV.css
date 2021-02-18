@@ -84,7 +84,12 @@ footer > a {
  * ##########################################################################################
  */
 
+.landing {
+    display: flex;
+    flex-flow: row;
+}
 .avatar {
+    align-self: center;
     float: left;
     max-height: 500px;
     max-width: 30%;
@@ -105,6 +110,11 @@ footer > a {
 .post {
     text-align: center;
     padding: 20px;
+    filter: saturate(0);
+    transition: 0.3s;
+}
+.post:hover {
+    filter: saturate(1);
 }
 .posts  a {
     text-decoration: none;
@@ -151,8 +161,8 @@ footer > a {
     max-width: 100%;
 }
 .textbox {
-    max-width: 1200px;
-    margin: auto;
+    max-width: 1000px;
+    margin: 2em auto;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6), 0 3px 10px 0 rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
     width: 100%;
@@ -161,8 +171,12 @@ footer > a {
     background: var(--colorbg);
     overflow: hidden;
     clear: both;
-    margin-bottom: 30px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    display: flex;
+    flex-flow: column;
+}
+.textbox > div {
+    margin: 1em auto;
 }
 p> img.smallimg {
     max-width: 30%;
@@ -230,6 +244,9 @@ p> img.smallimg {
     .topnav.responsive .homebtn {
         display: none;
     }
+    .avatar {
+        display: none;
+    }
 }
 @media screen and (max-width: 400px) {
     .topnav a {
@@ -264,10 +281,10 @@ p> img.smallimg {
         color: var(--color2);
     }
     51%{
-        color: var(--color0);
+        color: var(--colorbg);
     }
     100%{
-        color: var(--color0);
+        color: var(--colorbg);
     }
 }
 @keyframes static{
@@ -340,7 +357,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 50%;
-    z-index: -1;
+    z-index: -2;
     filter: blur(4px);
 }
 /* ---- stats.js ---- */

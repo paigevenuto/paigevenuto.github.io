@@ -1,29 +1,4 @@
 window.addEventListener("DOMContentLoaded", () => {
-  const topnav = document.querySelector(".topnav");
-  const menubtn = document.querySelector(".menubtn");
-  menubtn.addEventListener("click", dropdown);
-  function dropdown() {
-    topnav.style.top = "0";
-    if (topnav.className === "topnav") {
-      topnav.className += " responsive";
-    } else {
-      topnav.className = "topnav";
-    }
-  }
-
-  var prevScrollpos = window.pageYOffset;
-  window.onscroll = function () {
-    if (topnav.className === "topnav") {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        topnav.style.top = "0";
-      } else {
-        topnav.style.top = "-50px";
-      }
-      prevScrollpos = currentScrollPos;
-    }
-  };
-
   /*
    *######################################
    *######## Particles.js stuff  ###############
@@ -140,24 +115,4 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     retina_detect: false,
   });
-  var count_particles, stats, update;
-  stats = new Stats();
-  stats.setMode(0);
-  stats.domElement.style.position = "absolute";
-  stats.domElement.style.left = "0px";
-  stats.domElement.style.top = "0px";
-  document.body.appendChild(stats.domElement);
-  count_particles = document.querySelector(".js-count-particles");
-  update = function () {
-    stats.begin();
-    stats.end();
-    if (
-      window.pJSDom[0].pJS.particles &&
-      window.pJSDom[0].pJS.particles.array
-    ) {
-      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-    }
-    requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
 });
